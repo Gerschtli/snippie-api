@@ -1,0 +1,25 @@
+{
+  "name": "snippie-api",
+  "version": "1.0.0",
+  "description": "A simple REST API for storing text snippets by a key.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gerschtli/snippie-api.git"
+  },
+  "keywords": [
+    "snippie",
+    "rest",
+    "api",
+    "nodejs"
+  ],
+  "author": "Tobias Happ",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Gerschtli/snippie-api/issues"
+  },
+  "homepage": "https://github.com/Gerschtli/snippie-api#readme"
+}
