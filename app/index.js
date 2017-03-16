@@ -6,13 +6,13 @@ const routes      = require("./routes");
 
 const port = process.env.PORT || 8080;
 
-module.exports = () => {
-    const app = express();
+const app = express();
 
-    middlewares(app);
-    routes(app);
+middlewares(app);
+routes(app);
 
-    app.listen(port, () => {
-        console.log("Server runs on port " + port);
-    });
-};
+app.listen(port, () => {
+    console.log("Server runs on port " + port);
+});
+
+module.exports = app;
