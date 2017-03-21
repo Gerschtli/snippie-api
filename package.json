@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/Gerschtli/snippie-api#readme",
   "dependencies": {
+    "bluebird": "^3",
     "body-parser": "^1",
     "express": "^4",
     "morgan": "^1",
