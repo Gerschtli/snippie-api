@@ -1,11 +1,11 @@
 "use strict";
 
+const snippets = require("../controllers/snippets");
+
 module.exports = (router) => {
 
     router
         .route("/")
-        .get((req, res) => {
-            res.json({ message: "Snippets / GET" });
-        });
+        .get(snippets.get);
 
 };
