@@ -4,7 +4,7 @@
   "description": "A simple REST API for storing text snippets by a key.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "supervisor index.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "express": "^4",
     "morgan": "^1",
     "redis": "^2",
-    "require-dir": "^0"
+    "require-dir": "^0",
+    "supervisor": "^0"
   }
 }
