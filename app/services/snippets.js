@@ -3,18 +3,13 @@
 const database = require("./database");
 const Promise  = require("bluebird");
 
-const SET_NAME = "s-set";
-
 const errorHandler = (error) => {
     console.log("services/snippets", error);
     throw error;
 };
 
 const create = (snippet) => {
-    return database.multi()
-        .set(prefixKey(snippet.key), snippet.value)
-        .sadd(SET_NAME, snippet.key)
-        .execAsync()
+    return database.setAsync(prefixKey(snippet.key), snippet.value)
         .then((result) => {
             return snippet;
         })
@@ -27,7 +22,7 @@ const get = (key) => {
 };
 
 const getAll = () => {
-    return database.smembersAsync(SET_NAME)
+    return database.keysAsync()
         .then((keys) => {
             if (keys.length === 0) {
                 return keys;
@@ -55,7 +50,7 @@ const isValid = (snippet) => {
 };
 
 const keyExists = (key) => {
-    return database.sismemberAsync(SET_NAME, key)
+    return database.existsAsync(prefixKey(key))
         .catch(errorHandler);
 };
 
@@ -64,10 +59,7 @@ const prefixKey = (key) => {
 };
 
 const remove = (key) => {
-    return database.multi()
-        .del(prefixKey(key))
-        .srem(SET_NAME, key)
-        .execAsync()
+    return database.delAsync(prefixKey(key))
         .then((result) => {
             return { message: `Removed ${key}.` };
         })
