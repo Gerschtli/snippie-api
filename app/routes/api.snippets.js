@@ -6,6 +6,7 @@ module.exports = (router) => {
 
     router
         .route("/")
-        .get(snippets.get);
+        .get(snippets.getAll)
+        .post(snippets.add);
 
 };
