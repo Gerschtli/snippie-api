@@ -21,6 +21,11 @@ const create = (snippet) => {
         .catch(errorHandler);
 };
 
+const get = (key) => {
+    return database.getAsync(prefixKey(key))
+        .catch(errorHandler);
+};
+
 const getAll = () => {
     return database.smembersAsync(SET_NAME)
         .then((keys) => {
@@ -60,6 +65,7 @@ const prefixKey = (key) => {
 
 module.exports = {
     create,
+    get,
     getAll,
     isValid,
     keyExists,

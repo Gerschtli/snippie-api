@@ -26,6 +26,25 @@ const add = (request, response) => {
     );
 };
 
+const get = (request, response) => {
+    const key = request.params.key;
+
+    handlePromise(response,
+        service.keyExists(key)
+            .then((result) => {
+                console.log("test")
+                if (!result) {
+                    response.status(404).json({
+                        error: "Key not found."
+                    });
+                    return;
+                }
+
+                return service.get(key);
+            })
+    );
+};
+
 const getAll = (request, response) => {
     handlePromise(response,service.getAll());
 };
@@ -42,5 +61,6 @@ const handlePromise = (response, promise) => {
 
 module.exports = {
     add,
+    get,
     getAll,
 };

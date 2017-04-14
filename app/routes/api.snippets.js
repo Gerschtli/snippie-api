@@ -9,4 +9,8 @@ module.exports = (router) => {
         .get(snippets.getAll)
         .post(snippets.add);
 
+    router
+        .route("/:key")
+        .get(snippets.get);
+
 };
