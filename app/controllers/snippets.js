@@ -76,9 +76,36 @@ const remove = (request, response) => {
     );
 };
 
+const update = (request, response) => {
+    const key = request.params.key;
+    const snippet = request.body;
+
+    if (!service.isValid(snippet) || key != snippet.key) {
+        response.status(422).json({
+            error: "Object is not valid."
+        });
+        return;
+    }
+
+    handlePromise(response,
+        service.keyExists(key)
+            .then((keyExists) => {
+                if (!keyExists) {
+                    response.status(404).json({
+                        error: "Key not found."
+                    });
+                    return;
+                }
+
+                return service.update(snippet);
+            })
+    );
+};
+
 module.exports = {
     add,
-    remove,
     get,
     getAll,
+    update,
+    remove,
 };

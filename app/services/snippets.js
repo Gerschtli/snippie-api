@@ -74,6 +74,14 @@ const remove = (key) => {
         .catch(errorHandler);
 };
 
+const update = (snippet) => {
+    return database.setAsync(prefixKey(snippet.key), snippet.value)
+        .then((result) => {
+            return snippet;
+        })
+        .catch(errorHandler);
+}
+
 module.exports = {
     create,
     get,
@@ -81,4 +89,5 @@ module.exports = {
     isValid,
     keyExists,
     remove,
+    update,
 };

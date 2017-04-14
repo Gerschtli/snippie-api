@@ -12,6 +12,7 @@ module.exports = (router) => {
     router
         .route("/:key")
         .get(snippets.get)
+        .put(snippets.update)
         .delete(snippets.remove);
 
 };
