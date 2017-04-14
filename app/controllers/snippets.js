@@ -13,8 +13,8 @@ const add = (request, response) => {
 
     handlePromise(response,
         service.keyExists(snippet.key)
-            .then((result) => {
-                if (result) {
+            .then((keyExists) => {
+                if (keyExists) {
                     response.status(422).json({
                         error: "Key already defined."
                     });
@@ -31,9 +31,8 @@ const get = (request, response) => {
 
     handlePromise(response,
         service.keyExists(key)
-            .then((result) => {
-                console.log("test")
-                if (!result) {
+            .then((keyExists) => {
+                if (!keyExists) {
                     response.status(404).json({
                         error: "Key not found."
                     });
@@ -59,8 +58,27 @@ const handlePromise = (response, promise) => {
         });
 };
 
+const remove = (request, response) => {
+    const key = request.params.key;
+
+    handlePromise(response,
+        service.keyExists(key)
+            .then((keyExists) => {
+                if (!keyExists) {
+                    response.status(404).json({
+                        error: "Key not found."
+                    });
+                    return;
+                }
+
+                return service.remove(key);
+            })
+    );
+};
+
 module.exports = {
     add,
+    remove,
     get,
     getAll,
 };

@@ -63,10 +63,22 @@ const prefixKey = (key) => {
     return `snippet:${key}`;
 };
 
+const remove = (key) => {
+    return database.multi()
+        .del(prefixKey(key))
+        .srem(SET_NAME, key)
+        .execAsync()
+        .then((result) => {
+            return { message: `Removed ${key}.` };
+        })
+        .catch(errorHandler);
+};
+
 module.exports = {
     create,
     get,
     getAll,
     isValid,
     keyExists,
+    remove,
 };
