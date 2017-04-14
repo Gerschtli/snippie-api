@@ -1,7 +1,7 @@
 "use strict";
 
 const express    = require("express");
-const requireDir = require('require-dir');
+const requireDir = require("require-dir");
 const routes     = requireDir();
 
 function buildRoute(filename) {
