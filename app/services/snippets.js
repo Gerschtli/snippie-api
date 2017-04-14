@@ -3,6 +3,8 @@
 const database = require("./database");
 const Promise  = require("bluebird");
 
+const PREFIX = "snippet:";
+
 const errorHandler = (error) => {
     console.log("services/snippets", error);
     throw error;
@@ -21,23 +23,24 @@ const get = (key) => {
         .catch(errorHandler);
 };
 
-const getAll = () => {
-    return database.keysAsync()
-        .then((keys) => {
+const getAll = (search, limit) => {
+    return database.scanAsync(1, "MATCH", prefixKey(search), "COUNT", limit)
+        .then((result) => {
+            const keys = result[1];
             if (keys.length === 0) {
-                return keys;
+                return [];
             }
 
             let query = database.multi();
             keys.forEach((key) => {
-                query = query.get(prefixKey(key));
+                query = query.get(key);
             });
 
             return query.execAsync()
                 .then((values) => {
                     let result = [];
                     for (let i = keys.length - 1; i >= 0; i--) {
-                        result.push({key: keys[i], value: values[i]});
+                        result.push({key: removePrefix(keys[i]), value: values[i]});
                     }
                     return result;
                 });
@@ -55,7 +58,7 @@ const keyExists = (key) => {
 };
 
 const prefixKey = (key) => {
-    return `snippet:${key}`;
+    return `${PREFIX}${key}`;
 };
 
 const remove = (key) => {
@@ -65,6 +68,10 @@ const remove = (key) => {
         })
         .catch(errorHandler);
 };
+
+const removePrefix = (key) => {
+    return key.substring(PREFIX.length);
+}
 
 const update = (snippet) => {
     return database.setAsync(prefixKey(snippet.key), snippet.value)

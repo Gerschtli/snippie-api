@@ -45,7 +45,10 @@ const get = (request, response) => {
 };
 
 const getAll = (request, response) => {
-    handlePromise(response,service.getAll());
+    const limit  = request.query.limit || 100;
+    const search = request.query.search ? `*${request.query.search}*` : "*";
+
+    handlePromise(response, service.getAll(search, limit));
 };
 
 const handlePromise = (response, promise) => {
