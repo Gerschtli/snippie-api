@@ -11,7 +11,7 @@ const errorHandler = (error) => {
 };
 
 const create = (snippet) => {
-    return database.setAsync(prefixKey(snippet.key), snippet.value)
+    return database.hmsetAsync(prefixKey(snippet.key), snippet)
         .then((result) => {
             return snippet;
         })
@@ -19,7 +19,7 @@ const create = (snippet) => {
 };
 
 const get = (key) => {
-    return database.getAsync(prefixKey(key))
+    return database.hgetallAsync(prefixKey(key))
         .catch(errorHandler);
 };
 
@@ -33,17 +33,10 @@ const getAll = (search, limit) => {
 
             let query = database.multi();
             keys.forEach((key) => {
-                query = query.get(key);
+                query = query.hgetall(key);
             });
 
-            return query.execAsync()
-                .then((values) => {
-                    let result = [];
-                    for (let i = keys.length - 1; i >= 0; i--) {
-                        result.push({key: removePrefix(keys[i]), value: values[i]});
-                    }
-                    return result;
-                });
+            return query.execAsync();
         })
         .catch(errorHandler);
 };
@@ -73,14 +66,6 @@ const removePrefix = (key) => {
     return key.substring(PREFIX.length);
 }
 
-const update = (snippet) => {
-    return database.setAsync(prefixKey(snippet.key), snippet.value)
-        .then((result) => {
-            return snippet;
-        })
-        .catch(errorHandler);
-}
-
 module.exports = {
     create,
     get,
@@ -88,5 +73,5 @@ module.exports = {
     isValid,
     keyExists,
     remove,
-    update,
+    update: create,
 };
