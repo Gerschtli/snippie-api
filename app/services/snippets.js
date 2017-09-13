@@ -24,7 +24,7 @@ const get = (key) => {
 };
 
 const getAll = (search, limit) => {
-    return database.scanAsync(1, "MATCH", prefixKey(search), "COUNT", limit)
+    return database.scanAsync(0, "MATCH", prefixKey(search), "COUNT", limit)
         .then((result) => {
             const keys = result[1];
             if (keys.length === 0) {
