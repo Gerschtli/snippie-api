@@ -1,2 +1,6 @@
+default.nix
+node-env.nix
+node-packages.nix
 node_modules/
 npm-debug.log
+result
