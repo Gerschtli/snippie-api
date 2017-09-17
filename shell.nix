@@ -9,6 +9,7 @@ stdenv.mkDerivation {
   NIX_SHELL = name;
 
   buildInputs = [
+    git-crypt
     nixops
     nodePackages.node2nix
     nodejs-6_x

@@ -4,7 +4,10 @@
   "description": "A simple REST API for storing text snippets by a key.",
   "main": "index.js",
   "scripts": {
-    "start": "supervisor index.js"
+    "start": "supervisor index.js",
+    "create-prod": "NIX_PATH=${NIX_PATH}:. nixops create -s server/localstate.nixops -d snippie-prod '<server/app.nix>' '<server/prod.nix>'",
+    "deploy-prod": "NIX_PATH=${NIX_PATH}:. nixops deploy -s server/localstate.nixops -d snippie-prod",
+    "info-prod": "NIX_PATH=${NIX_PATH}:. nixops info -s server/localstate.nixops -d snippie-prod"
   },
   "repository": {
     "type": "git",
