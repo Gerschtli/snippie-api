@@ -1,12 +1,12 @@
 {
-  network.description = "snippie-api";
+  description = "snippie-api";
 
   snippie-api =
-    { config, pkgs, ... }:
+    { pkgs, appDir ? null, ... }:
     let
       nodejs = pkgs.nodejs-6_x;
       package = (import ../default.nix { inherit pkgs nodejs; }).package;
-      root = "${package}/lib/node_modules/snippie-api";
+      root = if (appDir != null) then appDir else "${package}/lib/node_modules/snippie-api";
     in
     {
       networking.firewall = {
@@ -29,6 +29,13 @@
         };
       };
 
-      users.users.snippie = { };
+      users = {
+        groups.snippie.gid = 1100;
+
+        users.snippie = {
+          uid = 1100;
+          group = "snippie";
+        };
+      };
     };
 }

@@ -2,24 +2,28 @@
 
 A simple REST API for storing text snippets by a key.
 
-## Docker Redis
-
-```sh
-$ docker run -p 6379:6379 --name redis-box -d redis
-```
 
 ## NixOps
 
-`package.json` to `nix` via
+Updates npm dependencies with
 ```sh
-$ node2nix
+$ npm run update
 ```
 
-### Development
+### Development (mounted vboxsf)
 
 ```sh
-$ nixops create -d snippie-dev server/app.nix server/dev.nix
-$ nixops deploy -d snippie-dev
+$ npm run create-dev
+$ npm deploy create-dev
+```
+
+You need to configure virtualbox manually!
+
+### Staging (production deployment in vbox)
+
+```sh
+$ npm run create-staging
+$ npm deploy create-staging
 ```
 
 You need to configure virtualbox manually!
@@ -27,8 +31,8 @@ You need to configure virtualbox manually!
 ### Production
 
 ```sh
-$ nixops create -d snippie-prod server/app.nix server/prod.nix
-$ nixops deploy -d snippie-prod
+$ npm run create-production
+$ npm deploy create-production
 ```
 
-You need to configure the ssh connection manually!
+You need to configure the ssh connection (hostname: `app.snippie`) manually!

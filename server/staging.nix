@@ -3,18 +3,19 @@ let
 in
 
 {
-  network = {
-    description = app.description;
-    enableRollback = true;
-  };
+  network.description = app.description;
 
   snippie-api =
     { lib, pkgs, ... }:
     lib.mkMerge [
       {
         deployment = {
-          targetEnv = "container";
-          container.host = "app.snippie";
+          targetEnv = "virtualbox";
+
+          virtualbox = {
+            memorySize = 1024;
+            headless = true;
+          };
         };
       }
 
