@@ -6,15 +6,15 @@
   "scripts": {
     "start":          "supervisor index.js",
     "update":         "npm install && node2nix",
-    "create-prod":    "NIX_PATH=${NIX_PATH}:. nixops create -s server/localstate.nixops -d snippie-prod '<server/prod.nix>'",
-    "deploy-prod":    "NIX_PATH=${NIX_PATH}:. nixops deploy -s server/localstate.nixops -d snippie-prod",
-    "info-prod":      "NIX_PATH=${NIX_PATH}:. nixops info   -s server/localstate.nixops -d snippie-prod",
-    "create-staging": "NIX_PATH=${NIX_PATH}:. nixops create -d snippie-staging '<server/staging.nix>'",
-    "deploy-staging": "NIX_PATH=${NIX_PATH}:. nixops deploy -d snippie-staging",
-    "info-staging":   "NIX_PATH=${NIX_PATH}:. nixops info   -d snippie-staging",
-    "create-dev":     "NIX_PATH=${NIX_PATH}:. nixops create -d snippie-dev '<server/dev.nix>'",
-    "deploy-dev":     "NIX_PATH=${NIX_PATH}:. nixops deploy -d snippie-dev",
-    "info-dev":       "NIX_PATH=${NIX_PATH}:. nixops info   -d snippie-dev"
+    "create-prod":    "nixops create -s server/localstate.nixops -d snippie-prod '<server/prod.nix>'",
+    "deploy-prod":    "nixops deploy -s server/localstate.nixops -d snippie-prod",
+    "info-prod":      "nixops info   -s server/localstate.nixops -d snippie-prod",
+    "create-staging": "nixops create -d snippie-staging '<server/staging.nix>'",
+    "deploy-staging": "nixops deploy -d snippie-staging",
+    "info-staging":   "nixops info   -d snippie-staging",
+    "create-dev":     "nixops create -d snippie-dev '<server/dev.nix>'",
+    "deploy-dev":     "nixops deploy -d snippie-dev",
+    "info-dev":       "nixops info   -d snippie-dev"
   },
   "repository": {
     "type": "git",
