@@ -1,8 +1,10 @@
-{
+rec {
   description = "snippie-api";
 
+  uid = 1100;
+
   snippie-api =
-    { pkgs, appDir ? null, ... }:
+    { pkgs, appDir ? null, mockInfrastructure ? false, ... }:
     let
       nodejs = pkgs.nodejs-6_x;
       package = (import ../default.nix { inherit pkgs nodejs; }).package;
@@ -14,7 +16,7 @@
         allowedTCPPorts = [ 8080 ];
       };
 
-      services.redis.enable = true;
+      services.redis.enable = mockInfrastructure;
 
       systemd.services.snippie-api = {
         description = "Snippie API application";
@@ -30,10 +32,10 @@
       };
 
       users = {
-        groups.snippie.gid = 1100;
+        groups.snippie.gid = uid;
 
         users.snippie = {
-          uid = 1100;
+          inherit uid;
           group = "snippie";
         };
       };

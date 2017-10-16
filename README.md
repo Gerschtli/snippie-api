@@ -9,31 +9,24 @@ Updates npm dependencies with
 $ npm run update
 ```
 
-## Deployments
+## NixOps
 
-### Development (mounted vboxsf)
+For `deployment` in (`dev`, `staging`, `prod`) use `nixops/manage`.
 
+For example:
 ```sh
-$ npm run create-dev
-$ npm run deploy-dev
+$ nixops/manage dev create "<nixops/dev.nix>"
+$ nixops/manage dev deploy
 ```
+
+### dev (mounted vboxsf)
 
 You need to configure virtualbox manually!
 
-### Staging (production deployment in vbox)
-
-```sh
-$ npm run create-staging
-$ npm run deploy-staging
-```
+### staging (production deployment in vbox)
 
 You need to configure virtualbox manually!
 
-### Production
-
-```sh
-$ npm run create-prod
-$ npm run deploy-prod
-```
+### prod
 
 You need to configure the ssh connection (hostname: `app.snippie`) manually!

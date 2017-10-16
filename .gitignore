@@ -1,4 +1,6 @@
-server/localstate.nixops-*
+*.nixops-*
+nixops/dev.nixops
+nixops/staging.nixops
 node_modules/
 npm-debug.log
 result

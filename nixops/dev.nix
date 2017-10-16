@@ -29,12 +29,12 @@ in
         fileSystems.${appDir} = {
           device = "snippie-api";
           fsType = "vboxsf";
-          options = [ "uid=1100" "gid=1100" ];
+          options = map (key: key + "=" + (toString app.uid)) [ "uid" "gid" ];
         };
 
         virtualisation.virtualbox.guest.enable = true;
       }
 
-      (app.snippie-api { inherit pkgs appDir; })
+      (app.snippie-api { inherit pkgs appDir; mockInfrastructure = true; })
     ];
 }
