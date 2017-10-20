@@ -35,6 +35,10 @@ in
         virtualisation.virtualbox.guest.enable = true;
       }
 
-      (app.snippie-api { inherit pkgs appDir; mockInfrastructure = true; })
+      (app.snippie-api {
+        inherit pkgs appDir;
+        mockInfrastructure = true;
+        nodeEnv = "dev";
+      })
     ];
 }

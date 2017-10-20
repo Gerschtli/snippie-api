@@ -4,7 +4,7 @@ rec {
   uid = 1100;
 
   snippie-api =
-    { pkgs, appDir ? null, mockInfrastructure ? false, ... }:
+    { pkgs, appDir ? null, mockInfrastructure ? false, nodeEnv ? "prod", ... }:
     let
       nodejs = pkgs.nodejs-6_x;
       package = (import ../default.nix { inherit pkgs nodejs; }).package;
@@ -16,13 +16,16 @@ rec {
         allowedTCPPorts = [ 8080 ];
       };
 
-      services.redis.enable = mockInfrastructure;
+      services.redis = pkgs.lib.mkIf mockInfrastructure {
+        enable = true;
+        requirePass = "test";
+      };
 
       systemd.services.snippie-api = {
         description = "Snippie API application";
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
-        environment = { PORT = "8080"; };
+        environment = { PORT = "8080"; NODE_ENV = nodeEnv; };
         path = [ pkgs.bash ];
         serviceConfig = {
           ExecStart = "${nodejs}/bin/npm run start --prefix ${root}";

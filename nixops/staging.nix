@@ -19,6 +19,10 @@ in
         };
       }
 
-      (app.snippie-api { inherit pkgs; mockInfrastructure = true; })
+      (app.snippie-api {
+        inherit pkgs;
+        mockInfrastructure = true;
+        nodeEnv = "dev";
+      })
     ];
 }
