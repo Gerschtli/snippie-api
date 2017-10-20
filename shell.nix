@@ -10,12 +10,7 @@ stdenv.mkDerivation {
 
   buildInputs = [
     git-crypt
-    nixops
     nodePackages.node2nix
     nodejs-6_x
   ];
-
-  shellHook = ''
-    export NIX_PATH="$NIX_PATH:."
-  '';
 }
