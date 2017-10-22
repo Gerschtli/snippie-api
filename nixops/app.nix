@@ -14,6 +14,7 @@ rec {
       networking.firewall = {
         enable = true;
         allowedTCPPorts = [ 8080 ];
+        allowPing = true;
       };
 
       services.redis = pkgs.lib.mkIf mockInfrastructure {
@@ -33,6 +34,8 @@ rec {
           Restart = "always";
         };
       };
+
+      time.timeZone = "Europe/Berlin";
 
       users = {
         groups.snippie.gid = uid;
