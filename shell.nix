@@ -1,12 +1,7 @@
 with import <nixpkgs> { };
 
-let
-  name = "snippie";
-in
-
 stdenv.mkDerivation {
-  name = "${name}-shell";
-  NIX_SHELL = name;
+  name = "snippie";
 
   buildInputs = [
     git-crypt
