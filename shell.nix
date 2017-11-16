@@ -1,7 +1,7 @@
 with import <nixpkgs> { };
 
 stdenv.mkDerivation {
-  name = "snippie";
+  name = "snippie-api";
 
   buildInputs = [
     git-crypt
