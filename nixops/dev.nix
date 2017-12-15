@@ -4,7 +4,7 @@ let
 in
 
 {
-  network.description = app.description;
+  network = { inherit (app) description; };
 
   snippie-api =
     { lib, pkgs, ... }:

@@ -3,10 +3,7 @@ let
 in
 
 {
-  network = {
-    description = app.description;
-    enableRollback = true;
-  };
+  network = { inherit (app) description; };
 
   snippie-api =
     { lib, pkgs, ... }:
